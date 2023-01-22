@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Form PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Form name="Manager Form" type="Workflow">
+  <Attributes>
+    <Map>
+      <entry key="pageTitle" value="Form to Manager"/>
+    </Map>
+  </Attributes>
+  <Description/>
+  <Section name="User Details">
+    <Field displayName="Name" name="name" postBack="true" type="string">
+      <Attributes>
+        <Map>
+          <entry key="readOnly" value="true"/>
+        </Map>
+      </Attributes>
+      <RuleRef>
+        <Reference class="sailpoint.object.Rule" name="Contractor Name Rule"/>
+      </RuleRef>
+    </Field>
+    <Field displayName="Employee Type" name="employeetype" type="string" value="Contractor">
+      <Attributes>
+        <Map>
+          <entry key="readOnly" value="true"/>
+        </Map>
+      </Attributes>
+    </Field>
+    <Field displayName="Department" name="Field 5" postBack="true" required="true" type="string">
+      <AllowedValuesDefinition>
+        <Value>
+          <List>
+            <String>Leadership</String>
+            <String>IT</String>
+            <String>HR</String>
+            <String>Operations</String>
+            <String>Accounting</String>
+          </List>
+        </Value>
+      </AllowedValuesDefinition>
+    </Field>
+    <Field displayName="Region" name="Field 6" postBack="true" required="true" type="string">
+      <AllowedValuesDefinition>
+        <Value>
+          <List>
+            <String>IND</String>
+            <String>US</String>
+          </List>
+        </Value>
+      </AllowedValuesDefinition>
+    </Field>
+    <Field displayName="Extended Date" helpKey="No of Days to be extended" name="extendedDate" postBack="true" required="true" type="int">
+      <AllowedValuesDefinition>
+        <Value>
+          <List>
+            <String>30</String>
+            <String>45</String>
+            <String>90</String>
+          </List>
+        </Value>
+      </AllowedValuesDefinition>
+    </Field>
+    <Field displayName="Manager" name="manager" postBack="true" required="true" type="sailpoint.object.Identity"/>
+  </Section>
+  <Button action="next" label="Submit"/>
+  <Button action="cancel" label="Cancel"/>
+  <Button action="refresh" label="Reject"/>
+</Form>

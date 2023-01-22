@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Workflow explicitTransitions="true" libraries="Identity" name="Termination Date Contractor Check" type="IdentityLifecycle">
+  <Variable input="true" name="trigger">
+    <Description>The IdentityTrigger</Description>
+  </Variable>
+  <Variable input="true" name="event" transient="true">
+    <Description>The IdentityChangeEvent.  It can be used to build
+      the provisioning plan, but does not need to be
+      persisted with the case, so marked as transient.</Description>
+  </Variable>
+  <Variable input="true" name="identityName">
+    <Description>The name of the identity.</Description>
+  </Variable>
+  <Description>Process a new employee.</Description>
+  <Step icon="Start" name="Start" posX="28" posY="10">
+    <Transition to="Manager Form"/>
+  </Step>
+  <Step icon="Stop" name="Stop" posX="618" posY="13"/>
+  <Step icon="Default" name="Manager Form" posX="140" posY="6">
+    <Approval return="" send="">
+      <Form>
+        <Attributes>
+          <Map>
+            <entry key="pageTitle"/>
+          </Map>
+        </Attributes>
+      </Form>
+    </Approval>
+    <Transition to="Update Termination Date" when="next==true"/>
+    <Transition to="Delete Accounts" when="refresh==true"/>
+  </Step>
+  <Step icon="Default" name="Update Termination Date" posX="302" posY="103">
+    <Script>
+      <Source>if(extendedDate==30){
+return identity.setAttribute("terminationDate","19-02-23");
+}
+
+if(extendedDate==45){
+return identity.setAttribute("terminationDate","06-03-23");
+}
+
+if(extendedDate==90){
+return identity.setAttribute("terminationDate","26-04-23");
+}</Source>
+    </Script>
+    <Transition to="Stop"/>
+  </Step>
+  <Step action="deleteAllAccounts" icon="Default" name="Delete Accounts" posX="456" posY="101">
+    <Transition to="Stop"/>
+  </Step>
+</Workflow>
